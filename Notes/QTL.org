@@ -1,0 +1,124 @@
+#+TITLE: QTL Mapping Notes
+#+AUTHOR: Nathan Hughes ([[mailto:nah31@aber.ac.uk][nah31@aber.ac.uk]])
+#+OPTIONS: toc:nil
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS: [a4paper]
+#+LaTeX_HEADER: \usepackage[margin=0.8in]{geometry}
+#+LaTeX_HEADER: \usepackage{amssymb,amsmath}
+#+LaTeX_HEADER: \usepackage{fancyhdr} %For headers and footers
+#+LaTeX_HEADER: \pagestyle{fancy} %For headers and footers
+#+LaTeX_HEADER: \usepackage{lastpage} %For getting page x of y
+#+LaTeX_HEADER: \usepackage{float} %Allows the figures to be positioned and formatted nicely
+#+LaTeX_HEADER: \floatstyle{boxed} %using this
+#+LaTeX_HEADER: \restylefloat{figure} %and this command
+#+LaTeX_HEADER: \usepackage{hyperref}
+#+LaTeX_HEADER: \hypersetup{urlcolor=blue}
+#+LaTeX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \setminted{frame=single,framesep=10pt}
+#+LaTeX_HEADER: \chead{}
+#+LaTeX_HEADER: \rhead{\today}
+#+LaTeX_HEADER: \cfoot{}
+#+LaTeX_HEADER: \rfoot{\thepage\ of \pageref{LastPage}}
+
+#+LATEX: \maketitle
+#+LATEX: \clearpage
+#+LATEX: \tableofcontents
+#+LATEX: \clearpage
+
+* What is QTL Analysis? 
+Quantitative Trait Locus  Analysis is a statistical method that links two types of information
+- Phenotypic data (i.e. trait measurements)
+- Genotypic data (usually molecular markers)
+
+** What is a single QTL
+An individual QT is a secton of DNA, it is arbitrarily described by correlation and not a physical element that can be seen. 
+
+** What is it used for?
+QTL attempts to explain the genetic basis of variation in complex traits. 
+They allow researches in many fields, from agriculture to evolutionary biology, to link complex phenotypes to specific 
+regions of chromosomes. 
+
+** What is the goal of it?
+The end goal of the QTL process is to identify the action, interaction number, and precise location of regions on a chromosome 
+which "code" for specific phenotypic expression
+\\
+\\
+More specifically the principle goal is to answer the question of whether phenotypic differences are primarily due to few loci with farily
+large effects, or to many loci, each with minute effects. It appears that a substantial proportion of the phenotypic variation in many quantitative 
+traits can be explained with few loci of large effect, with the remainder due to numerous loci of small effect. 
+For example, in domesticated rice (Oryza sativa), studies of flowering time have identified six QTL; the sum of the effects
+of the top five QTL explains 84% of the variation in this trait 
+
+#+BEGIN_center
+#+ATTR_LATEX: :width 0.3\textwidth :height 0.5\textwidth 
+#+NAME: fig:QTL Data
+#+CAPTION: © 2001 Nature Publishing Group Mackey, T. F. Quantitative trait loci in Drosophila. Nature Reviews Genetics 2, 13 (2001). All rights reserved 
+[[./images/qtl.jpg]]
+#+END_center
+
+* How does QTL work? 
+In order for QTL to be conducted, two things are required: 
+1. Two or more strains of organisms which differ genetically with regard to the trait of interest (Fig1. a shows variation in a population over time).
+   - For example selecting lines which have alleles that influence flowering colour. 
+2. Genetic markers for that specific species  which distinguish between parental lines.
+   - Molecular markers are preferred for genotyping, because these markers are unlikely to affect the trait of interest. 
+
+* Generating populations for study
+This involves using the identified parents/individuals/organisms and running a breeding program to build up a population suitable 
+for use in genetic difference identification.
+
+** Initial selection and crossing
+Carrying out the QTL analysis is done by crossing the, genetically different, identified strains and a $f^1$ population of *heterozygous* 
+individuals is produced (Fig 1. B). These are then selectively chosen and used to produce further generations to a $f^n$ generation.
+Next the genotypes' and phenotypes' of the $f^n$ generation individuals are scored. Markers that are genetically linked to a QTL influencing
+the trait of interest will segregate more frequently with the trait values (flowering colour, in the previously mentioned example). Whereas unlinked markers
+will not show significant association with phenotype (Fig 1. C). 
+
+** Multi-gene traits
+For traits controlled by tens or hundreds of genes, the paternal lines need not actually be different for the phenotype in question; 
+rather they must simply contain different alleles, which are then resorted by recombination in the derived population to produce 
+a range of phenotypic values. Consider for example, a trait which is controlled by four genes, wherein the upper-case alleles increase the value 
+of the trait being studied. The lower-case alleles decrease the vale of that trait. Here, if the effects of the alleles of the four genes are 
+similar, individuals with the AABBccdd and aabbCCDD genotypes might have roughly the same phenotype measurement. The members of the $f^1$ population 
+(AaBbCcDd) would be invariant and would have an intermediate phenotype. However the $f^2$ generation, or the progeny from a backcross would have
+anywhere from zero to eight upper-case alleles. The backcross progeny would have anywhere from four to eight upper-case alleles. 
+
+* Types of markers
+As mentioned there are several different kinds of markers, these are just a few commonly used examples
+** SNPs
+Single nucleotide polymorphisms, are the most common type of genetic variation among people. Each SNP represents a difference in a single 
+DNA building block (nucleotide). For example a SNP may replace the nucleotide cytosine (C) with the nucleotide thymine (T) in a certain 
+region of DNA. 
+
+- The wikipedia article on this is quite good: 
+  - [[https://www.wikiwand.com/en/SNP_genotyping]]
+
+** SSR
+Simple sequence repeats, these have the ability to be done at a medium throughput. 
+
+** RFLPs
+Restriction fragment length polymorphisms. These were used as the primary markers up to the late 80's but couldn't be done 
+through automated means, was expensive and thus became obsolete.
+
+* TODO Biology Dictionary 
+- QTL
+- Phenotype 
+- Genotype
+- Nucleotide
+- SNPs
+- Homozygous 
+- Heterozygous 
+- Backcross 
+- Alleles 
+- Chromosomes
+- Recombination
+- Progeny 
+
+
+* Questions
+- How do you make/find genetic markers? 
+  - What are they?
+- What is the difference in a complex trait and and a simple trait?
+- How did they form mapping populations in things like mammals, that have a longer reproduction cycle than plants? 
+
+- When crossing, if two parents produce an $f^1$ from one time breeding, if for example they are bred again another year, is this still the $f^1$?
