@@ -1,0 +1,112 @@
+#+TITLE: Genetics Dictonary
+#+AUTHOR: Nathan Hughes ([[mailto:nah31@aber.ac.uk][nah31@aber.ac.uk]])
+#+OPTIONS: toc:nil
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS: [a4paper]
+#+LaTeX_HEADER: \usepackage[margin=0.8in]{geometry}
+#+LaTeX_HEADER: \usepackage{amssymb,amsmath}
+#+LaTeX_HEADER: \usepackage{fancyhdr} %For headers and footers
+#+LaTeX_HEADER: \pagestyle{fancy} %For headers and footers
+#+LaTeX_HEADER: \usepackage{lastpage} %For getting page x of y
+#+LaTeX_HEADER: \usepackage{float} %Allows the figures to be positioned and formatted nicely
+#+LaTeX_HEADER: \floatstyle{boxed} %using this
+#+LaTeX_HEADER: \restylefloat{figure} %and this command
+#+LaTeX_HEADER: \usepackage{hyperref}
+#+LaTeX_HEADER: \hypersetup{urlcolor=blue}
+#+LaTeX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \setminted{frame=single,framesep=10pt}
+#+LaTeX_HEADER: \chead{}
+#+LaTeX_HEADER: \rhead{\today}
+#+LaTeX_HEADER: \cfoot{}
+#+LaTeX_HEADER: \rfoot{\thepage\ of \pageref{LastPage}}
+#+LATEX: \maketitle
+[[./images/biologyTree.png]]
+#+LATEX: \clearpage
+#+LATEX: \tableofcontents
+#+LATEX: \clearpage
+
+
+* QTL
+  - Quantitative Trait Locus 
+  - See [[./QTL.org]]
+
+* Phenotype 
+  - The physical manifestation of a trait
+
+* Genotype
+  - The genetic makeup of an individual organism
+
+* Nucleotide
+  - Building blocks of nucleic acids
+  - Basis of constructing DNA
+
+* SNPs
+  - Single*nucleotide polymorphism 
+  - Is a region of DNA which varies 
+  - i.e. C*G changing to a T*A in one specific place
+  - Can be found through the PCR process (amongst others)
+
+* DNA
+  - Deoxyribonucleic acid
+  - Is a molecule that carries all genetic instructions of a living organism
+
+* Chromosome
+  - is a DNA molecule that has been packaged into thread-like structures
+  - Each chromosome is made up of DNA tightly coiled many times around proteins called histones
+  - Is visible under microscope when cells are dividing. 
+  - Linear arrangements of condensed DNA
+
+* Ploidy
+  - The number of sets of chromosomes in a cells
+  - The possible number of alleles for autosomal and pseudoautosomal genes
+
+* Gene
+  - A region of DNA
+  - Made up of nucleotides
+  - Sometimes called locus of DNA
+  - Is the molecular unit of heredity 
+
+* Genome
+  - Encompasses DNA, RNA and mitochrondria/chroloplasts of an organism. 
+
+* Homozygous 
+  - An gene is said to be homozygous  when identical alleles of the gene are present on all chromosomes
+  - Homozygous*dominant for a trait carries multiple copies for the dominant trait
+
+* Heterozygous 
+  - A gene is said to be heterozygous when at a gene locus there is two different alleles (copies of the same gene)
+
+* Homologous Chromosomes
+  - Are the set made from both parents during meiosis
+  - Homologs have the same genes in the same loci where they provide points along each chromosome
+  - They enable a pair of chromosomes to align correctly before separating during meiosis
+  - Fig. 1 Illustrates this process
+
+#+ATTR_LATEX: :width 0.2\textwidth :height 0.3\textwidth   
+#+NAME: fig:Meiosis
+#+CAPTION: During the process of meiosis, homologous chromosomes can recombine and produce new combinations of genes in the daughter cells.
+[[./images/meiosis.png]] 
+
+* Recombinaton 
+  - Is a process by which pieces of DNA are borken and recombined to produce new combinations of alleles
+  - In eukaryotic cells, this typically happens during meiosis
+  - Genes that are located further apart on the same chromosome have a greater chance of undergoing recombination
+
+
+
+* Meiosis 
+  - Is a form of cell division that produces gametes
+  - During the first phase of meiosis, the homologous pairs of parental chromosomes can overlap and temporally fuse, causing a crossover
+
+
+* Gametes
+
+* Backcross 
+* Alleles 
+* Chromosomes
+* Recombination
+* Progeny 
+* Transcription 
+* Candidate gene
+* Mendelian inheritance
+* Heritability 

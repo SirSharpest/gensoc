@@ -47,7 +47,13 @@ More specifically the principle goal is to answer the question of whether phenot
 large effects, or to many loci, each with minute effects. It appears that a substantial proportion of the phenotypic variation in many quantitative 
 traits can be explained with few loci of large effect, with the remainder due to numerous loci of small effect. 
 For example, in domesticated rice (Oryza sativa), studies of flowering time have identified six QTL; the sum of the effects
-of the top five QTL explains 84% of the variation in this trait 
+of the top five QTL explains 84% of the variation in this trait. 
+
+* What can you do with QTL Data  
+Once QTL have been identified, molecular techniques can be employed to narrow the QTL down to candidate genes. One important
+emerging trend in these analyses is the prominent role of regulatory genes, or genes which code for transcription factors and other 
+signalling proteins. For instance, in rice, three flowering time QTL have been identified at the molecular level, and all of these loci 
+encode regulatory proteins know from studies of /Arabidopsis thaliana/.
 
 #+BEGIN_center
 #+ATTR_LATEX: :width 0.3\textwidth :height 0.5\textwidth 
@@ -83,6 +89,10 @@ similar, individuals with the AABBccdd and aabbCCDD genotypes might have roughly
 (AaBbCcDd) would be invariant and would have an intermediate phenotype. However the $f^2$ generation, or the progeny from a backcross would have
 anywhere from zero to eight upper-case alleles. The backcross progeny would have anywhere from four to eight upper-case alleles. 
 
+** Problems with population sizes
+A small population size may lead to problems and as such is a critical factor to the validity of experiments. A small sample size may 
+lead to overestimation of the effect of a QTL. 
+
 * Types of markers
 As mentioned there are several different kinds of markers, these are just a few commonly used examples
 ** SNPs
@@ -100,25 +110,7 @@ Simple sequence repeats, these have the ability to be done at a medium throughpu
 Restriction fragment length polymorphisms. These were used as the primary markers up to the late 80's but couldn't be done 
 through automated means, was expensive and thus became obsolete.
 
-* TODO Biology Dictionary 
-- QTL
-- Phenotype 
-- Genotype
-- Nucleotide
-- SNPs
-- Homozygous 
-- Heterozygous 
-- Backcross 
-- Alleles 
-- Chromosomes
-- Recombination
-- Progeny 
 
+* Performing QTL Analysis with a set of markers
+* [[file:dictonary.org][Biology Dictonary]]
 
-* Questions
-- How do you make/find genetic markers? 
-  - What are they?
-- What is the difference in a complex trait and and a simple trait?
-- How did they form mapping populations in things like mammals, that have a longer reproduction cycle than plants? 
-
-- When crossing, if two parents produce an $f^1$ from one time breeding, if for example they are bred again another year, is this still the $f^1$?
