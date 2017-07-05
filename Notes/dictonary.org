@@ -93,7 +93,6 @@
   - Genes that are located further apart on the same chromosome have a greater chance of undergoing recombination
 
 
-
 * Meiosis 
   - Is a form of cell division that produces gametes
   - During the first phase of meiosis, the homologous pairs of parental chromosomes can overlap and temporally fuse, causing a crossover
@@ -109,4 +108,18 @@
 * Transcription 
 * Candidate gene
 * Mendelian inheritance
+  - Is a type of inheritance that follows the laws of Gregor Mendel 
+  - Fig. 2 Illustrates dominant and recessive phenotypes
+  - Fig. 3 Illustrates the law of independent assortment
+  - The Law of Dominance states that recessive alleles will always be masked by dominant alleles. Therefore, a cross between a homozygous dominant and a homozygous recessive will always express the dominant phenotype, while still having a heterozygous genotype. 
+#+ATTR_LATEX: :width 0.2\textwidth :height 0.3\textwidth   
+#+NAME: fig:Mendel
+#+CAPTION: (1) Parental generation. (2) F1 generation. (3) F2 generation. Dominant (red) and recessive (white) phenotype look alike in the F1 (first) generation and show a 3:1 ratio in the F2 (second) generation.
+[[./images/mendel.png]]
+
+#+ATTR_LATEX: :width 0.2\textwidth :height 0.3\textwidth   
+#+NAME: fig:Mendel2
+#+CAPTION: The phenotypes of two independent traits show a 9:3:3:1 ratio in the F2 generation. In this example, coat color is indicated by B (brown, dominant) or b (white), while tail length is indicated by S (short, dominant) or s (long). When parents are homozygous for each trait (SSbb and ssBB), their children in the F1 generation are heterozygous at both loci and only show the dominant phenotypes (SsbB). If the children mate with each other, in the F2 generation all combinations of coat color and tail length occur: 9 are brown/short (purple boxes), 3 are white/short (pink boxes), 3 are brown/long (blue boxes) and 1 is white/long (green box).
+[[./images/mendel2.png]]
+
 * Heritability 
