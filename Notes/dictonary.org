@@ -28,7 +28,7 @@
 
 * QTL
   - Quantitative Trait Locus 
-  - See [[./QTL.org]]
+  - See [[./QTL.pdf][QTL Notes]]
 
 * Phenotype 
   - The physical manifestation of a trait
@@ -97,11 +97,27 @@
   - Is a form of cell division that produces gametes
   - During the first phase of meiosis, the homologous pairs of parental chromosomes can overlap and temporally fuse, causing a crossover
 
-
 * Gametes
+  - These are (generally(don't ask)) haploid cells 
+    - i.e. have one set of paternal chromosomes
+  - Used in sexual reproduction
+
+* Gametogenesis
+  - Is the biological process by which diploid or haploid cells undergo cell division
+  - Produces Gametes 
 
 * Backcross 
+  - Backcrossing is a crossing of a hybrid with one of its parents or an individual genetically similar to its parent
+  - In order to achieve offspring with a genetic identity which is closer to that of the parent
+
+* Gene Knockout 
+  - A gene knockout is a genetic technique in which one of an organisms genes is made inoperative
+
 * Alleles 
+  - Is a variant form of a given gene
+  - Sometimes, different alleles can result in a different observable phenotypic traits
+  - The word "allele" is short form of allelomorph
+  - */Most/* multicellular organisms have two sets of chromosomes; that is, they are diploid
 * Chromosomes
 * Recombination
 * Progeny 
