@@ -1,0 +1,85 @@
+#     1500474454   -filetype QTLcart.log 
+#
+#	QTL Cartographer v. 1.17j, 28 January 2005
+#	This output file (qtlcart.log) was created by Rmap...
+#
+#	It is 15:27:34 on Wednesday, 19 July 2017
+#
+#
+
+======================================================================
+	QTL Cartographer v. 1.17j, 28 January 2005  for Unix
+	Copyright (C) 1996-2001 C. J. Basten, B. S. Weir and Z.-B. Zeng.
+	QTL Cartographer comes with ABSOLUTELY NO WARRANTY.
+	This is free software, and you are welcome to redistribute it
+	under certain conditions. For details see the file COPYING.
+
+======================================================================
+TIME:    15:27:34 on Wednesday, 19 July 2017
+PROGRAM: Rmap
+PURPOSE: Create or translate a genetic linkage map
+USAGE:   Rmap  [-i  x]  [-o  x]  [-e  x] ...
+DEFAULTS:
+  [ -i  ABR6xBd21_Rmap.inp ] Input File                                        
+  [ -o      qtlcart.map ] Output File                                       
+  [ -e      qtlcart.log ] Error File                                        
+  [ -s       1500474454 ] Random Number Seed                                
+  [ -f                2 ] Map Function [1,8], 1 => Haldane                  
+  [ -p         0.000000 ] Map Function Parameter                            
+  [ -g                1 ] Ouput (1,2,3) => Text, Graphics, Both             
+  [ -c                4 ] Chromosomes                                       
+  [ -m               16 ] Markers per Chromosome                            
+  [-vm         0.000000 ] Standard Deviation of Markers per Chromosome      
+  [ -d        10.000000 ] Intermarker Distance (cM)                         
+  [-vd         0.000000 ] Standard Deviation of Intermarker Distance (cM)   
+  [ -t         0.000000 ] Tails (Flanking DNA, in cM)                       
+  [ -M                0 ] Simulation Mode (0,1)                             
+
+  Also: [-h] for help, [-A] for automatic,  [-V] for non-Verbose
+  [-W path] for a working directory, [-R file] to specify a resource
+  file and [-X stem] to specify a filename stem.
+
+......................................................................
+
+Program started: 15:27:34 on Wednesday, 19 July 2017
+and finished:    15:27:34 on Wednesday, 19 July 2017
+
+######################################################################
+
+======================================================================
+	QTL Cartographer v. 1.17j, 28 January 2005  for Unix
+	Copyright (C) 1996-2001 C. J. Basten, B. S. Weir and Z.-B. Zeng.
+	QTL Cartographer comes with ABSOLUTELY NO WARRANTY.
+	This is free software, and you are welcome to redistribute it
+	under certain conditions. For details see the file COPYING.
+
+======================================================================
+TIME:    15:27:49 on Wednesday, 19 July 2017
+PROGRAM: Rcross
+PURPOSE: Create or translate a data set
+USAGE:   Rcross  [-i  x]  [-o  x]  [-e  x] ...
+DEFAULTS:
+  [ -i  ABR6xBd21_Rcross.inp ] Input File                                        
+  [ -o      qtlcart.cro ] Output File                                       
+  [ -e      qtlcart.log ] Error File                                        
+  [ -m      qtlcart.map ] Genetic Linkage Map File                          
+  [ -q      qtlcart.qtl ] QTL Data File                                     
+  [ -s       1500474469 ] Random Number Seed                                
+  [ -g                0 ] Output format [0,1,2,...,7]                       
+  [ -c               B1 ] Cross (1,2,3) => (B1,B2,F2)                       
+  [ -H         0.500000 ] Heritability                                      
+  [ -r                0 ] Replications (Not yet active)                     
+  [ -I                0 ] Interactive Crosses? (0,1) => (no,yes)            
+  [ -E        -1.000000 ] Environmental Variance (used if > 0)              
+  [ -n              200 ] Sample Size                                       
+
+  Also: [-h] for help, [-A] for automatic,  [-V] for non-Verbose
+  [-W path] for a working directory, [-R file] to specify a resource
+  file and [-X stem] to specify a filename stem.
+
+......................................................................
+
+Program started: 15:27:49 on Wednesday, 19 July 2017
+and finished:    15:27:49 on Wednesday, 19 July 2017
+
+######################################################################
