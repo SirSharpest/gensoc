@@ -4,17 +4,21 @@ library(dplyr)
 library(purrr)
 library(readr)
 library(ggplot2)
+library(scales)
+library(plotrix)
 
 source('~/Documents/GenSoc/QTL Mapping/Code/multiplot.R')
 
 setwd('~/Documents/GenSoc/Data/')
 
 # Read in the CSV files
-Tbl <- list.files(path = "./phendata",
+Tbl <- list.files(path = "./phendata/CT Data/",
                   pattern="*ISQ.csv",
                   recursive = TRUE,
                   full.names = T) %>% 
   map_df(function(f) read_csv(f, col_types = cols(.default = "n")) %>% mutate('Measurement number'=gsub(".ISQ.csv","",basename(f))))
+
+
 
 # Remove seeds at awkward angles
 Tbl <- Tbl[Tbl$length < quantile(Tbl$length, 0.95),]
@@ -28,6 +32,7 @@ Tbl <- Tbl[Tbl$volume > 1,]
 Tbl$geometry_ratio <- ((Tbl$width / Tbl$length) + (Tbl$width / Tbl$depth)
                        + (Tbl$depth / Tbl$width)+ (Tbl$depth / Tbl$length)
                        + (Tbl$length / Tbl$depth) + (Tbl$length / Tbl$width))
+
 
 # Normalisation function
 norml <- function(x){(x-min(x))/(max(x)-min(x))}
@@ -43,6 +48,9 @@ Tbl$crease_volume <- NULL
 Tbl$'Measurement number' <- substring(Tbl$'Measurement number', 5)
 Tbl$'Measurement number' <- as.numeric(Tbl$'Measurement number') + 7
 
+# add count to Tbl for grains
+count <- rle(sort(Tbl$`Measurement number`))
+Tbl$grain_count <- count[[1]][match(Tbl$`Measurement number`, count[[2]])]
 
 # load matching file
 scans2rils <- read_csv('scans_and_RILs_linker.csv', col_types = cols(.default = 'c'))
@@ -57,19 +65,79 @@ parents <- joined[is.na(joined$`RIL ID`),]
 joined <- joined[!is.na(joined$`RIL ID`),]
 
 
-# This is just a sanity check really to see what kind of data we are getting
-ps<-list()
-
 write_csv(joined, 'individualSeedData.csv')
 
 # Compress data to averages per plant for geno matching
   # Define useable phenotypic columns 
-phenotypes <- list(joined$length, joined$width, joined$depth, joined$circularity, joined$volume,
-                   joined$crease_depth, joined$surface_area, joined$z, joined$geometry_ratio)
 
-phendata <-aggregate(phenotypes, by=list(joined$`RIL ID`), mean)
-colnames(phendata) <- c('RIL','length', 'width', 'depth', 'circularity', 'volume', 'crease_depth', 'surface_area', 'z', 'geometry_ratio') 
-write_tsv(phendata, 'meanRILs.tsv')
+# divide parents 
+abr6 <- parents[parents$`Plant number`=='BD_01504',]
+abr6$`RIL ID` <- 'abr6'
+bd21 <- parents[parents$`Plant number`=='BD_01505',]
+bd21$`RIL ID` <- 'bd21'
+# define population phenotypes
+phenotypes <- list(joined$length, joined$width, joined$depth, joined$circularity, joined$volume,
+                   joined$crease_depth, joined$surface_area, joined$z, joined$geometry_ratio, joined$grain_count)
+
+# parental phenotypes 
+abr6_phenotypes <- list(abr6$length, abr6$width, abr6$depth, abr6$circularity, abr6$volume,
+                   abr6$crease_depth, abr6$surface_area, abr6$z, abr6$geometry_ratio, abr6$grain_count)
+bd21_phenotypes <- list(bd21$length, bd21$width, bd21$depth, bd21$circularity, bd21$volume,
+                        bd21$crease_depth, bd21$surface_area, bd21$z, bd21$geometry_ratio, bd21$grain_count)
+
+# Get medians
+abr6Median <- aggregate(abr6_phenotypes, by=list(abr6$`RIL ID`), median)
+colnames(abr6Median) <- c('RIL','median_length', 
+                              'median_width', 'median_depth',
+                              'median_circularity', 'median_volume',
+                              'median_crease_depth', 'median_surface_area',
+                              'median_z', 'median_geometry_ratio', 'median_grain_count') 
+
+bd21Median <- aggregate(bd21_phenotypes, by=list(bd21$`RIL ID`), median)
+colnames(bd21Median) <- c('RIL','median_length', 
+                          'median_width', 'median_depth',
+                          'median_circularity', 'median_volume',
+                          'median_crease_depth', 'median_surface_area',
+                          'median_z', 'median_geometry_ratio', 'median_grain_count') 
+
+
+phendataMedian <- aggregate(phenotypes, by=list(joined$`RIL ID`), median)
+colnames(phendataMedian) <- c('RIL','median_length', 
+                              'median_width', 'median_depth',
+                              'median_circularity', 'median_volume',
+                              'median_crease_depth', 'median_surface_area',
+                              'median_z', 'median_geometry_ratio', 'median_grain_count') 
+
+# get SE and merge
+
+abr6SE <- aggregate(abr6_phenotypes, by=list(abr6$`RIL ID`), std.error) 
+colnames(abr6SE) <- c('RIL','se_length', 
+                          'se_width', 'se_depth',
+                          'se_circularity', 'se_volume',
+                          'se_crease_depth', 'se_surface_area',
+                          'se_z', 'se_geometry_ratio', 'se_grain_count') 
+abr6_phendata <- merge(abr6Median, abr6SE)
+
+bd21SE <- aggregate(bd21_phenotypes, by=list(bd21$`RIL ID`), std.error) 
+colnames(bd21SE) <- c('RIL','se_length', 
+                      'se_width', 'se_depth',
+                      'se_circularity', 'se_volume',
+                      'se_crease_depth', 'se_surface_area',
+                      'se_z', 'se_geometry_ratio', 'se_grain_count') 
+bd21_phendata <- merge(bd21Median, bd21SE)
+
+
+
+
+phendataSE <- aggregate(phenotypes, by=list(joined$`RIL ID`), std.error) 
+colnames(phendataSE) <- c('RIL','se_length', 
+                              'se_width', 'se_depth',
+                              'se_circularity', 'se_volume',
+                              'se_crease_depth', 'se_surface_area',
+                              'se_z', 'se_geometry_ratio', 'se_grain_count') 
+phendata <- merge(phendataMedian, phendataSE)
+
+write_tsv(phendata, 'medianRILs.tsv')
 
 
 # Next sort out the genetic map
@@ -88,19 +156,90 @@ mapable_phens <- phendata[phendata$RIL %in% colnames(genmap)[4:118],]
 write_tsv(data.frame(t(mapable_phens)), 'Genetic Map/AxB_F8_PreQTLCartographer-Phenotypes.tsv')
 
 
+# This is just a sanity check really to see what kind of data we are getting
+
+ps1<-list()
+
 ### Some plotting
-for (h in colnames(Tbl[1:13])){
+for (h in c('length', 
+            'width', 'depth',
+            'circularity', 'volume',
+            'crease_depth', 'surface_area',
+            'z', 'geometry_ratio') ){
   
-  if (h == 'Measurement number') next
   
-  p <- ggplot(Tbl, aes_string(x=h)) +
+  bd <- data.frame(bd21[,h]) 
+  colnames(bd) <- h
+  abr <- data.frame(abr6[,h])
+  colnames(abr) <- h
+  cross <- data.frame(joined[,h])
+  colnames(cross) <- h
+  
+  bd$source <- 'bd21'
+  abr$source <- 'abr6'
+  cross$source <- 'cross'
+  
+  attribute <-rbind.fill(bd, abr, cross)
+  
+  p <- ggplot(attribute, aes_string(h, fill='source')) +
+    geom_density(alpha = 0.5, aes(y = ..density..), position = 'identity')
+  
+  ps1[[length(ps1)+1]] <-p
+}
+
+X11()
+multiplot(ps1[[1]], ps1[[2]], ps1[[3]], ps1[[4]], ps1[[5]], ps1[[6]],
+          ps1[[7]], ps1[[8]], ps1[[9]], cols=2)
+
+
+
+ps<-list()
+
+### Some plotting
+for (h in c('median_length', 
+            'median_width', 'median_depth',
+            'median_circularity', 'median_volume',
+            'median_crease_depth', 'median_surface_area',
+            'median_z', 'median_geometry_ratio', 'median_grain_count') ){
+  
+  
+  p <- ggplot(phendata, aes_string(x=h)) +
     geom_histogram(col="black", 
-                   aes(fill=..count..), bins=30) + 
-    scale_fill_gradient2("Count", high="red")
+                   aes(fill=..count..), bins=15) + 
+    scale_fill_gradient2("Count", high="blue")
+  
   
   ps[[length(ps)+1]] <-p
 }
+
 X11()
 multiplot(ps[[1]], ps[[2]], ps[[3]], ps[[4]], ps[[5]], ps[[6]],
-          ps[[7]], ps[[8]], ps[[9]], ps[[10]], ps[[11]], ps[[12]], cols=2)
+          ps[[7]], ps[[8]], ps[[9]], ps[[10]], cols=2)
+
+
+pse<-list()
+
+
+
+
+
+for (h in c('se_length', 
+            'se_width', 'se_depth',
+            'se_circularity', 'se_volume',
+            'se_crease_depth', 'se_surface_area',
+            'se_z', 'se_geometry_ratio', 'se_grain_count') ){
+  
+  
+  p <- ggplot(phendata, aes_string(x=h)) +
+    geom_histogram(col="black", 
+                   aes(fill=..count..), bins=15) + 
+    scale_fill_gradient2("Count", high="blue") 
+  
+  pse[[length(pse)+1]] <-p
+}
+
+X11()
+multiplot(pse[[1]], pse[[2]], pse[[3]], pse[[4]], pse[[5]], pse[[6]],
+          pse[[7]], pse[[8]], pse[[9]], pse[[10]], cols=2)
+
 
