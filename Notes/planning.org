@@ -1,0 +1,80 @@
+#+TITLE: GenSoc Planning and schedule
+#+AUTHOR: Nathan Hughes ([[mailto:nah31@aber.ac.uk][nah31@aber.ac.uk]])
+#+OPTIONS: toc:nil
+#+LaTeX_CLASS: article
+#+LaTeX_CLASS_OPTIONS: [a4paper]
+#+LaTeX_HEADER: \usepackage[margin=0.8in]{geometry}
+#+LaTeX_HEADER: \usepackage{amssymb,amsmath}
+#+LaTeX_HEADER: \usepackage{fancyhdr} %For headers and footers
+#+LaTeX_HEADER: \pagestyle{fancy} %For headers and footers
+#+LaTeX_HEADER: \usepackage{lastpage} %For getting page x of y
+#+LaTeX_HEADER: \usepackage{float} %Allows the figures to be positioned and formatted nicely
+#+LaTeX_HEADER: \floatstyle{boxed} %using this
+#+LaTeX_HEADER: \restylefloat{figure} %and this command
+#+LaTeX_HEADER: \usepackage{hyperref}
+#+LaTeX_HEADER: \hypersetup{urlcolor=blue}
+#+LaTeX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \setminted{frame=single,framesep=10pt}
+#+LaTeX_HEADER: \chead{}
+#+LaTeX_HEADER: \rhead{\today}
+#+LaTeX_HEADER: \cfoot{}
+#+LaTeX_HEADER: \rfoot{\thepage\ of \pageref{LastPage}}
+
+#+LATEX: \maketitle
+#+LATEX: \clearpage
+#+LATEX: \tableofcontents
+#+LATEX: \clearpage
+
+
+* Week 1: 3rd - 7th July
+
+** DONE Read up on QTL Analysis
+I'll need a thorough understanding of the analysis techniques that are used in identifying potential QTLs. 
+A literature review of current work with mapping populations and grasses would also be helpful.  
+
+
+** DONE Learn R 
+Having identified that the majority of QTL analysis is done using the R programming language, I will need to spend a considerable amount of time 
+learning both current packages for analysis and the semantics of the R language itself. 
+
+* Week 2: 10th - 14th July
+
+** DONE Prepare image analysis software
+I'll be needing to take the uCT software that I'd previously written and make several adjustments, as well as experimenting with ideal  parameters for this previously 
+unused species of brachypodium. 
+
+It'll mostly be resolution adjustments and ground truth verification of input/output.
+
+** DONE Process Brachypodium scans
+The entire population that we have scanned so far (141 F8 plants and 3 scans from each parent ABR6 and BD21) will need to be processed, data lifted and then prepared for analysis. 
+
+
+* Week 3: 17th - 21th July
+** DONE Perform initial data analysis 
+Using initial data gathered check for patterns in both phenotype data and genotype data. 
+*** DONE Genotypic Analysis 
+Compile together the gathered data to QTL workable formats and then run checks for potential QTLs. 
+*** DONE Phenotypic Analysis
+Run statistical tests on data to enquire as to potential relationships and areas of interest for future work. 
+
+* Week 4: 24th - 28th July 
+** TODO Scan additional plant material to support hypothesised QTLs (1/2)
+There are 141 plants which have been crossed, we want to scan more heads from each plant. 
+Ideally we want 3+ heads to give us 3x the data we currently have in order to give further support of our hypothesised QTLs.
+
+We can do 12x scans per day, 6 days a week thus 72~ scans this week and 72~ the next, we should be completed by then and ready to rerun analysis.  
+
+* Week 5: 31st July - 4th August
+** TODO Scan additional plant material to support hypothesised QTLs (2/2)
+Hopefully scanning will be completed this week and we can proceed to re-run analysis previous written
+
+* Week 6: 7th - 11th August
+** TODO Run image processing and analysis on newly gathered scan data
+
+** TODO Give talk at Bioinformatics
+
+* Week 7: 14th - 18th August
+** TODO Analyse for QTLs previously identified 
+
+* Week 8: 21st - 26th August
+** TODO Compile findings and write report
