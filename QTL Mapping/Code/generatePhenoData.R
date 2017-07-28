@@ -33,7 +33,6 @@ Tbl$geometry_ratio <- ((Tbl$width / Tbl$length) + (Tbl$width / Tbl$depth)
                        + (Tbl$depth / Tbl$width)+ (Tbl$depth / Tbl$length)
                        + (Tbl$length / Tbl$depth) + (Tbl$length / Tbl$width))
 
-
 # Normalisation function
 norml <- function(x){(x-min(x))/(max(x)-min(x))}
 Tbl$geometry_ratio <- norml(Tbl$geometry_ratio) 

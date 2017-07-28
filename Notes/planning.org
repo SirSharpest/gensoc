@@ -57,12 +57,29 @@ Compile together the gathered data to QTL workable formats and then run checks f
 *** DONE Phenotypic Analysis
 Run statistical tests on data to enquire as to potential relationships and areas of interest for future work. 
 
+
 * Week 4: 24th - 28th July 
 ** TODO Scan additional plant material to support hypothesised QTLs (1/2)
 There are 141 plants which have been crossed, we want to scan more heads from each plant. 
 Ideally we want 3+ heads to give us 3x the data we currently have in order to give further support of our hypothesised QTLs.
-
+  
 We can do 12x scans per day, 6 days a week thus 72~ scans this week and 72~ the next, we should be completed by then and ready to rerun analysis.  
+
+#+attr_latex: :environment longtable :align |l|p{10cm}| 
+|------------------+-----------------------------------------------------------------------------|
+| Date             | Notes                                                                       |
+|------------------+-----------------------------------------------------------------------------|
+| <2017-07-25 Tue> | Started scanning today, currently on 1-12                                   |
+|                  | Parent scans (1 & 2 ) also done                                             |
+|------------------+-----------------------------------------------------------------------------|
+| <2017-07-26 Wed> | Karen loaded up 13-24                                                       |
+|------------------+-----------------------------------------------------------------------------|
+| <2017-07-27 Thu> | 25-36 loaded by me                                                          |
+|------------------+-----------------------------------------------------------------------------|
+| <2017-07-28 Fri> | 37-48 loaded by me, 31 had to be rescanned, so remember this when analysing (7) |
+|------------------+-----------------------------------------------------------------------------|
+
+
 
 * Week 5: 31st July - 4th August
 ** TODO Scan additional plant material to support hypothesised QTLs (2/2)
@@ -71,8 +88,7 @@ Hopefully scanning will be completed this week and we can proceed to re-run anal
 * Week 6: 7th - 11th August
 ** TODO Run image processing and analysis on newly gathered scan data
 
-** TODO Give talk at Bioinformatics
-
+   
 * Week 7: 14th - 18th August
 ** TODO Analyse for QTLs previously identified 
 
