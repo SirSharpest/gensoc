@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+plot\PYG{p}{(}\PYG{k+kt}{matrix}\PYG{p}{(}rnorm\PYG{p}{(}\PYG{l+m}{100}\PYG{p}{),} ncol\PYG{o}{=}\PYG{l+m}{2}\PYG{p}{),} type\PYG{o}{=}\PYG{l+s}{\PYGZdq{}l\PYGZdq{}}\PYG{p}{)}
+\end{Verbatim}

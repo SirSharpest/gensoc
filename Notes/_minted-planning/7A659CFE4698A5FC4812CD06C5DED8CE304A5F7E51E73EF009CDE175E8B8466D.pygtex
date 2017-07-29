@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{library}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}ggplot2\PYGZdq{}}\PYG{p}{)}
+ggplot\PYG{p}{(}iris\PYG{p}{,} aes\PYG{p}{(}x \PYG{o}{=} Sepal.Width\PYG{p}{,} y \PYG{o}{=} Sepal.Length\PYG{p}{,} color \PYG{o}{=} Species\PYG{p}{))} \PYG{o}{+}
+geom\PYGZus{}point\PYG{p}{()}
+\end{Verbatim}

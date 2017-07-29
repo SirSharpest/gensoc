@@ -1,0 +1,69 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{library}\PYG{p}{(}ggplot2\PYG{p}{)}
+\PYG{k+kn}{library}\PYG{p}{(}GGally\PYG{p}{)}
+
+\PYG{k+kp}{setwd}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}\PYGZti{}/Documents/GenSoc/Data/\PYGZsq{}}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Read in the CSV files}
+Tbl \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kp}{list.files}\PYG{p}{(}path \PYG{o}{=} \PYG{l+s}{\PYGZdq{}./phendata/CT Data/\PYGZdq{}}\PYG{p}{,}
+		  pattern\PYG{o}{=}\PYG{l+s}{\PYGZdq{}*ISQ.csv\PYGZdq{}}\PYG{p}{,}
+		  recursive \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{,}
+		  full.names \PYG{o}{=} \PYG{n+nb+bp}{T}\PYG{p}{)} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+  map\PYGZus{}df\PYG{p}{(}\PYG{k+kr}{function}\PYG{p}{(}f\PYG{p}{)} read\PYGZus{}csv\PYG{p}{(}f\PYG{p}{,} col\PYGZus{}types \PYG{o}{=} cols\PYG{p}{(}\PYG{l+m}{.}default \PYG{o}{=} \PYG{l+s}{\PYGZdq{}n\PYGZdq{}}\PYG{p}{))} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}} mutate\PYG{p}{(}\PYG{l+s}{\PYGZsq{}Measurement number\PYGZsq{}}\PYG{o}{=}\PYG{k+kp}{gsub}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}.ISQ.csv\PYGZdq{}}\PYG{p}{,}\PYG{l+s}{\PYGZdq{}\PYGZdq{}}\PYG{p}{,}\PYG{k+kp}{basename}\PYG{p}{(}f\PYG{p}{))))}
+
+
+\PYG{c+c1}{\PYGZsh{} Remove seeds at awkward angles}
+Tbl \PYG{o}{\PYGZlt{}\PYGZhy{}} Tbl\PYG{p}{[}Tbl\PYG{o}{\PYGZdl{}}length \PYG{o}{\PYGZlt{}} quantile\PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}\PYG{k+kp}{length}\PYG{p}{,} \PYG{l+m}{0.95}\PYG{p}{),]}
+Tbl \PYG{o}{\PYGZlt{}\PYGZhy{}} Tbl\PYG{p}{[}Tbl\PYG{o}{\PYGZdl{}}width \PYG{o}{\PYGZlt{}} \PYG{l+m}{2}\PYG{p}{,]}
+
+
+\PYG{c+c1}{\PYGZsh{} Remove fragments of rachis}
+Tbl \PYG{o}{\PYGZlt{}\PYGZhy{}} Tbl\PYG{p}{[}Tbl\PYG{o}{\PYGZdl{}}volume \PYG{o}{\PYGZgt{}} \PYG{l+m}{1}\PYG{p}{,]}
+
+\PYG{c+c1}{\PYGZsh{} generate ratio of width/length/depth}
+Tbl\PYG{o}{\PYGZdl{}}geometry\PYGZus{}ratio \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{p}{((}Tbl\PYG{o}{\PYGZdl{}}width \PYG{o}{/} Tbl\PYG{o}{\PYGZdl{}}\PYG{k+kp}{length}\PYG{p}{)} \PYG{o}{+} \PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}width \PYG{o}{/} Tbl\PYG{o}{\PYGZdl{}}depth\PYG{p}{)}
+		       \PYG{o}{+} \PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}depth \PYG{o}{/} Tbl\PYG{o}{\PYGZdl{}}width\PYG{p}{)}\PYG{o}{+} \PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}depth \PYG{o}{/} Tbl\PYG{o}{\PYGZdl{}}\PYG{k+kp}{length}\PYG{p}{)}
+		       \PYG{o}{+} \PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}length \PYG{o}{/} Tbl\PYG{o}{\PYGZdl{}}depth\PYG{p}{)} \PYG{o}{+} \PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}length \PYG{o}{/} Tbl\PYG{o}{\PYGZdl{}}width\PYG{p}{))}
+
+\PYG{c+c1}{\PYGZsh{} Normalisation function}
+norml \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kr}{function}\PYG{p}{(}x\PYG{p}{)\PYGZob{}(}x\PYG{o}{\PYGZhy{}}\PYG{k+kp}{min}\PYG{p}{(}x\PYG{p}{))}\PYG{o}{/}\PYG{p}{(}\PYG{k+kp}{max}\PYG{p}{(}x\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{k+kp}{min}\PYG{p}{(}x\PYG{p}{))\PYGZcb{}}
+Tbl\PYG{o}{\PYGZdl{}}geometry\PYGZus{}ratio \PYG{o}{\PYGZlt{}\PYGZhy{}} norml\PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}geometry\PYGZus{}ratio\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Flip the Z}
+Tbl\PYG{o}{\PYGZdl{}}z \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kp}{max}\PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}z\PYG{p}{)} \PYG{o}{\PYGZhy{}} Tbl\PYG{o}{\PYGZdl{}}z
+
+\PYG{c+c1}{\PYGZsh{} Remove crease volume}
+Tbl\PYG{o}{\PYGZdl{}}crease\PYGZus{}volume \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kc}{NULL}
+
+\PYG{c+c1}{\PYGZsh{} Rename the filename for matching up}
+Tbl\PYG{o}{\PYGZdl{}}\PYG{l+s}{\PYGZsq{}Measurement number\PYGZsq{}} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kp}{substring}\PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}\PYG{l+s}{\PYGZsq{}Measurement number\PYGZsq{}}\PYG{p}{,} \PYG{l+m}{5}\PYG{p}{)}
+Tbl\PYG{o}{\PYGZdl{}}\PYG{l+s}{\PYGZsq{}Measurement number\PYGZsq{}} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kp}{as.numeric}\PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}\PYG{l+s}{\PYGZsq{}Measurement number\PYGZsq{}}\PYG{p}{)} \PYG{o}{+} \PYG{l+m}{7}
+
+\PYG{c+c1}{\PYGZsh{} add count to Tbl for grains}
+count \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kp}{rle}\PYG{p}{(}\PYG{k+kp}{sort}\PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}\PYG{l+s+sb}{`Measurement number`}\PYG{p}{))}
+Tbl\PYG{o}{\PYGZdl{}}grain\PYGZus{}count \PYG{o}{\PYGZlt{}\PYGZhy{}} count\PYG{p}{[[}\PYG{l+m}{1}\PYG{p}{]][}\PYG{k+kp}{match}\PYG{p}{(}Tbl\PYG{o}{\PYGZdl{}}\PYG{l+s+sb}{`Measurement number`}\PYG{p}{,} count\PYG{p}{[[}\PYG{l+m}{2}\PYG{p}{]])]}
+
+\PYG{c+c1}{\PYGZsh{} load matching file}
+scans2rils \PYG{o}{\PYGZlt{}\PYGZhy{}} read\PYGZus{}csv\PYG{p}{(}\PYG{l+s}{\PYGZsq{}scans\PYGZus{}and\PYGZus{}RILs\PYGZus{}linker.csv\PYGZsq{}}\PYG{p}{,} col\PYGZus{}types \PYG{o}{=} cols\PYG{p}{(}\PYG{l+m}{.}default \PYG{o}{=} \PYG{l+s}{\PYGZsq{}c\PYGZsq{}}\PYG{p}{))}
+scans2rils\PYG{o}{\PYGZdl{}}\PYG{l+s+sb}{`Measurement number`} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kp}{as.numeric}\PYG{p}{(}scans2rils\PYG{o}{\PYGZdl{}}\PYG{l+s+sb}{`Measurement number`}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Join up on measurement number}
+joined \PYG{o}{=} \PYG{k+kp}{merge}\PYG{p}{(}Tbl\PYG{p}{,} scans2rils\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Remove parent scans}
+joined\PYG{o}{\PYGZdl{}}\PYG{l+s+sb}{`RIL ID`} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kp}{as.numeric}\PYG{p}{(}joined\PYG{o}{\PYGZdl{}}\PYG{l+s+sb}{`RIL ID`}\PYG{p}{)}
+
+phenotypes \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kt}{list}\PYG{p}{(}joined\PYG{o}{\PYGZdl{}}\PYG{k+kp}{length}\PYG{p}{,} joined\PYG{o}{\PYGZdl{}}width\PYG{p}{,} joined\PYG{o}{\PYGZdl{}}depth\PYG{p}{,} joined\PYG{o}{\PYGZdl{}}circularity\PYG{p}{,} joined\PYG{o}{\PYGZdl{}}volume\PYG{p}{,}
+		   joined\PYG{o}{\PYGZdl{}}crease\PYGZus{}depth\PYG{p}{,} joined\PYG{o}{\PYGZdl{}}surface\PYGZus{}area\PYG{p}{,} joined\PYG{o}{\PYGZdl{}}z\PYG{p}{,} joined\PYG{o}{\PYGZdl{}}geometry\PYGZus{}ratio\PYG{p}{,} joined\PYG{o}{\PYGZdl{}}grain\PYGZus{}count\PYG{p}{)}
+
+
+phendataMedian \PYG{o}{\PYGZlt{}\PYGZhy{}} aggregate\PYG{p}{(}phenotypes\PYG{p}{,} by\PYG{o}{=}\PYG{k+kt}{list}\PYG{p}{(}joined\PYG{o}{\PYGZdl{}}\PYG{l+s+sb}{`RIL ID`}\PYG{p}{),} median\PYG{p}{)}
+\PYG{k+kp}{colnames}\PYG{p}{(}phendataMedian\PYG{p}{)} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{k+kt}{c}\PYG{p}{(}\PYG{l+s}{\PYGZsq{}RIL\PYGZsq{}}\PYG{p}{,}\PYG{l+s}{\PYGZsq{}median\PYGZus{}length\PYGZsq{}}\PYG{p}{,}
+			      \PYG{l+s}{\PYGZsq{}median\PYGZus{}width\PYGZsq{}}\PYG{p}{,} \PYG{l+s}{\PYGZsq{}median\PYGZus{}depth\PYGZsq{}}\PYG{p}{,}
+			      \PYG{l+s}{\PYGZsq{}median\PYGZus{}circularity\PYGZsq{}}\PYG{p}{,} \PYG{l+s}{\PYGZsq{}median\PYGZus{}volume\PYGZsq{}}\PYG{p}{,}
+			      \PYG{l+s}{\PYGZsq{}median\PYGZus{}crease\PYGZus{}depth\PYGZsq{}}\PYG{p}{,} \PYG{l+s}{\PYGZsq{}median\PYGZus{}surface\PYGZus{}area\PYGZsq{}}\PYG{p}{,}
+			      \PYG{l+s}{\PYGZsq{}median\PYGZus{}z\PYGZsq{}}\PYG{p}{,} \PYG{l+s}{\PYGZsq{}median\PYGZus{}geometry\PYGZus{}ratio\PYGZsq{}}\PYG{p}{,} \PYG{l+s}{\PYGZsq{}median\PYGZus{}grain\PYGZus{}count\PYGZsq{}}\PYG{p}{)}
+
+\PYG{k+kp}{setwd}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZti{}/Documents/GenSoc/Notes/\PYGZdq{}}\PYG{p}{)}
+ggcorr\PYG{p}{(}phendata\PYG{p}{)}
+\end{Verbatim}
