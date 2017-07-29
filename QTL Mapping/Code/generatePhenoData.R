@@ -7,23 +7,20 @@ library(ggplot2)
 library(scales)
 library(plotrix)
 
-source('~/Documents/GenSoc/QTL Mapping/Code/multiplot.R')
-
-setwd('~/Documents/GenSoc/Data/')
+# Setup working dir
+setwd('C:/Users/Nathan/Google Drive/GenSoc/Data/')
 
 # Read in the CSV files
-Tbl <- list.files(path = "./phendata/CT Data/",
+Tbl <- list.files(path = "Phenotypic Data/CT Data/",
                   pattern="*ISQ.csv",
                   recursive = TRUE,
                   full.names = T) %>% 
   map_df(function(f) read_csv(f, col_types = cols(.default = "n")) %>% mutate('Measurement number'=gsub(".ISQ.csv","",basename(f))))
 
 
-
 # Remove seeds at awkward angles
 Tbl <- Tbl[Tbl$length < quantile(Tbl$length, 0.95),]
 Tbl <- Tbl[Tbl$width < 2,]
-
 
 # Remove fragments of rachis 
 Tbl <- Tbl[Tbl$volume > 1,]
@@ -52,7 +49,7 @@ count <- rle(sort(Tbl$`Measurement number`))
 Tbl$grain_count <- count[[1]][match(Tbl$`Measurement number`, count[[2]])]
 
 # load matching file
-scans2rils <- read_csv('scans_and_RILs_linker.csv', col_types = cols(.default = 'c'))
+scans2rils <- read_csv('Scanning Information/scans_and_RILs_linker.csv', col_types = cols(.default = 'c'))
 scans2rils$`Measurement number` <- as.numeric(scans2rils$`Measurement number`) 
 
 # Join up on measurement number
@@ -62,9 +59,6 @@ joined = merge(Tbl, scans2rils)
 joined$`RIL ID` <- as.numeric(joined$`RIL ID`)
 parents <- joined[is.na(joined$`RIL ID`),]
 joined <- joined[!is.na(joined$`RIL ID`),]
-
-
-write_csv(joined, 'individualSeedData.csv')
 
 # Compress data to averages per plant for geno matching
   # Define useable phenotypic columns 
@@ -108,7 +102,6 @@ colnames(phendataMedian) <- c('RIL','median_length',
                               'median_z', 'median_geometry_ratio', 'median_grain_count') 
 
 # get SE and merge
-
 abr6SE <- aggregate(abr6_phenotypes, by=list(abr6$`RIL ID`), std.error) 
 colnames(abr6SE) <- c('RIL','se_length', 
                           'se_width', 'se_depth',
@@ -126,8 +119,6 @@ colnames(bd21SE) <- c('RIL','se_length',
 bd21_phendata <- merge(bd21Median, bd21SE)
 
 
-
-
 phendataSE <- aggregate(phenotypes, by=list(joined$`RIL ID`), std.error) 
 colnames(phendataSE) <- c('RIL','se_length', 
                               'se_width', 'se_depth',
@@ -136,11 +127,10 @@ colnames(phendataSE) <- c('RIL','se_length',
                               'se_z', 'se_geometry_ratio', 'se_grain_count') 
 phendata <- merge(phendataMedian, phendataSE)
 
-write_tsv(phendata, 'medianRILs.tsv')
-
+write_tsv(phendata, 'Phenotypic Data/Compiled Data/medianRILs.tsv')
 
 # Next sort out the genetic map
-genmap = read_tsv('Genetic Map/AxB_F8_PreQTLCartographer-Genotypes.tsv', col_types=cols(.default='c'))
+genmap = read_tsv('Genetic Map/Cartographer Files/AxB_F8_PreQTLCartographer-Genotypes.tsv', col_types=cols(.default='c'))
 
 # fix naming
 colnames(genmap) <- gsub("ABR6 x Bd21 F2-", "", colnames(genmap))
@@ -152,93 +142,7 @@ colnames(genmap)[4:118] <- as.numeric(colnames(genmap)[4:118])
 mapable_phens <- phendata[phendata$RIL %in% colnames(genmap)[4:118],]
 
 # Write
-write_tsv(data.frame(t(mapable_phens)), 'Genetic Map/AxB_F8_PreQTLCartographer-Phenotypes.tsv')
+write_tsv(data.frame(t(mapable_phens)), 'Genetic Map/Cartographer Files/AxB_F8_PreQTLCartographer-Phenotypes.tsv')
 
-
-# This is just a sanity check really to see what kind of data we are getting
-
-ps1<-list()
-
-### Some plotting
-for (h in c('length', 
-            'width', 'depth',
-            'circularity', 'volume',
-            'crease_depth', 'surface_area',
-            'z', 'geometry_ratio') ){
-  
-  
-  bd <- data.frame(bd21[,h]) 
-  colnames(bd) <- h
-  abr <- data.frame(abr6[,h])
-  colnames(abr) <- h
-  cross <- data.frame(joined[,h])
-  colnames(cross) <- h
-  
-  bd$source <- 'bd21'
-  abr$source <- 'abr6'
-  cross$source <- 'cross'
-  
-  attribute <-rbind.fill(bd, abr, cross)
-  
-  p <- ggplot(attribute, aes_string(h, fill='source')) +
-    geom_density(alpha = 0.5, aes(y = ..density..), position = 'identity')
-  
-  ps1[[length(ps1)+1]] <-p
-}
-
-X11()
-multiplot(ps1[[1]], ps1[[2]], ps1[[3]], ps1[[4]], ps1[[5]], ps1[[6]],
-          ps1[[7]], ps1[[8]], ps1[[9]], cols=2)
-
-
-
-ps<-list()
-
-### Some plotting
-for (h in c('median_length', 
-            'median_width', 'median_depth',
-            'median_circularity', 'median_volume',
-            'median_crease_depth', 'median_surface_area',
-            'median_z', 'median_geometry_ratio', 'median_grain_count') ){
-  
-  
-  p <- ggplot(phendata, aes_string(x=h)) +
-    geom_histogram(col="black", 
-                   aes(fill=..count..), bins=15) + 
-    scale_fill_gradient2("Count", high="blue")
-  
-  
-  ps[[length(ps)+1]] <-p
-}
-
-X11()
-multiplot(ps[[1]], ps[[2]], ps[[3]], ps[[4]], ps[[5]], ps[[6]],
-          ps[[7]], ps[[8]], ps[[9]], ps[[10]], cols=2)
-
-
-pse<-list()
-
-
-
-
-
-for (h in c('se_length', 
-            'se_width', 'se_depth',
-            'se_circularity', 'se_volume',
-            'se_crease_depth', 'se_surface_area',
-            'se_z', 'se_geometry_ratio', 'se_grain_count') ){
-  
-  
-  p <- ggplot(phendata, aes_string(x=h)) +
-    geom_histogram(col="black", 
-                   aes(fill=..count..), bins=15) + 
-    scale_fill_gradient2("Count", high="blue") 
-  
-  pse[[length(pse)+1]] <-p
-}
-
-X11()
-multiplot(pse[[1]], pse[[2]], pse[[3]], pse[[4]], pse[[5]], pse[[6]],
-          pse[[7]], pse[[8]], pse[[9]], pse[[10]], cols=2)
 
 
