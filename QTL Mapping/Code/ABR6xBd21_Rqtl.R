@@ -1,19 +1,14 @@
 # Nathan's Version July 2017
-library('tictoc')
-tic()
-# Set working directory
-setwd('~/Documents/ABR6xBd21/Rqtl/')
 
 # Read in Rqtl package
 library(qtl)
 
-# Read in:
-#	(1) Genetic Map
-#	(2) Marker Position Information
-#	(3) Phenotypic Data
-#	(4) Chromosome ID
-#	(5) Marker Names
-#	(6) Phenotype Names
+library('tictoc')
+tic()
+# Set working directory
+setwd('~/Google Drive/GenSoc/Data/Genetic Map/Latest ABR6xBD21 Map/')
+
+
 HM = read.cross(format="qtlcart", file="qtlcart.cro", mapfile="qtlcart.map")
 
 # Calculate genotypic probabilities

@@ -2,7 +2,10 @@
 # requires genereatePhenoData to be called first
 # to setup some of the variables
 
-source('QTL Mapping/Code/multiplot.R')
+
+setwd('C:/Users/Nathan/Google Drive/GenSoc/Data/')
+
+source('C:/Users/Nathan/Google Drive/GenSoc/QTL Mapping/Code/multiplot.R')
 
 # This is just a sanity check really to see what kind of data we are getting
 
@@ -35,7 +38,6 @@ for (h in c('length',
     ps1[[length(ps1) + 1]] <- p
 }
 
-X11()
 multiplot(ps1[[1]], ps1[[2]], ps1[[3]], ps1[[4]], ps1[[5]], ps1[[6]],
           ps1[[7]], ps1[[8]], ps1[[9]], cols = 2)
 
@@ -58,7 +60,6 @@ for (h in c('median_length',
     ps[[length(ps) + 1]] <- p
 }
 
-X11()
 multiplot(ps[[1]], ps[[2]], ps[[3]], ps[[4]], ps[[5]], ps[[6]],
           ps[[7]], ps[[8]], ps[[9]], ps[[10]], cols = 2)
 
@@ -84,6 +85,5 @@ for (h in c('se_length',
     pse[[length(pse) + 1]] <- p
 }
 
-X11()
 multiplot(pse[[1]], pse[[2]], pse[[3]], pse[[4]], pse[[5]], pse[[6]],
           pse[[7]], pse[[8]], pse[[9]], pse[[10]], cols = 2)

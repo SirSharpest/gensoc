@@ -8,7 +8,7 @@ library(scales)
 library(plotrix)
 
 # Setup working dir
-setwd('C:/Users/Nathan/Google Drive/GenSoc/Data/')
+setwd('/home//nathan/Google Drive/GenSoc/Data/')
 
 # Read in the CSV files
 Tbl <- list.files(path = "Phenotypic Data/CT Data/",
@@ -130,7 +130,7 @@ phendata <- merge(phendataMedian, phendataSE)
 write_tsv(phendata, 'Phenotypic Data/Compiled Data/medianRILs.tsv')
 
 # Next sort out the genetic map
-genmap = read_tsv('Genetic Map/Cartographer Files/AxB_F8_PreQTLCartographer-Genotypes.tsv', col_types=cols(.default='c'))
+genmap = read_tsv('Genetic Map/Cartographer files/AxB_F8_PreQTLCartographer-Genotypes.tsv', col_types=cols(.default='c'))
 
 # fix naming
 colnames(genmap) <- gsub("ABR6 x Bd21 F2-", "", colnames(genmap))
@@ -142,7 +142,7 @@ colnames(genmap)[4:118] <- as.numeric(colnames(genmap)[4:118])
 mapable_phens <- phendata[phendata$RIL %in% colnames(genmap)[4:118],]
 
 # Write
-write_tsv(data.frame(t(mapable_phens)), 'Genetic Map/Cartographer Files/AxB_F8_PreQTLCartographer-Phenotypes.tsv')
+write_tsv(data.frame(t(mapable_phens)), 'Genetic Map/Cartographer files/AxB_F8_PreQTLCartographer-Phenotypes.tsv')
 
 
 
