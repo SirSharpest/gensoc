@@ -1,0 +1,71 @@
+#
+#  This is the parameter file for QTLcartographer.
+#  It was regenerated 21:34:50 on Monday, 14 August 2017
+#
+#        Some basic parameters
+#
+-chrom               5  # (Number of chromosomes: Rmap)
+-mark               33  # (Average number of markers per chromosome: Rmap)
+-vmark         11.8617  # (Standard Deviation in the number of markers/chromosome: Rmap)
+-dist          12.2177  # (Average intermarker distance, in cM: Rmap)
+-vdist          4.4124  # (Standard Deviation of intermarker distance: Rmap)
+-qnum                9  # (Average number of QTLs per trait: Rqtl)
+-dom                 1  # (type of dominance: Rqtl)
+-beta           2.0000  # (Value of additive beta: Rqtl)
+-beta1          2.0000  # (Value of dominance beta1: Rqtl)
+-beta2          2.0000  # (Value of dominance beta2: Rqtl)
+-traits             50  # (Number of quantitative traits: Rqtl)
+-whichtrait         50  # (The trait to be analyzed: Zmapqtl)
+-Herit          0.5000  # (Heritability: Rcross)
+-cross               3  # (Type of cross: Rcross)
+-nn                115  # (Sample size: Rcross)
+-Model               6  # (Model for analysis: Zmapqtl)
+-walk           2.0000  # (Walking speed along chromosomes, in cM: Zmapqtl)
+-window        10.0000  # (Window width, in cM: Zmapqtl)
+-nbp                5  # (Number of background parameters: Zmapqtl)
+-mapfunc             2  # (Map Function)
+-gout                1  # (Output flag: Rmap)
+-Rmode               0  # (Simulation Mode: Rmap)
+-emaplink       0.2500  # (Size of test for linkage: Emap)
+-emapseg        0.0100  # (Size of test for segregation: Emap)
+-emapmeth           10  #  (Emap method flag)
+-emapobj             0  #  (Emap objective function, )
+-lodflag             0  # (1 => LOD scores in Preplot, Eqtl)
+-srF            0.0500  # (p(Fin): SRmapqtl)
+-srB            0.0500  # (p(Fout): SRmapqtl)
+-srM                 2  # (Regression type: SRmapqtl)
+-srupper             5  # (Maximun number of steps in stepwise regression: SRmapqtl)
+-size           0.0500  # (Size, or alpha)
+-siglevel       8.0000  # (Size, or alpha)
+-LRmax         88.9282  # Maximum LR or LOD score
+-Effectmax       56.089287  # Maximum additive effect 
+-maxqtl             19  # (Maximum QTL to fit in MImapqtl)
+-maxepis            19  # (Maximum Epistatic effect to fit in MImapqtl)
+-lodmim         0.0000  # (LOD for adding/dropping parameters in MImapqtl)
+-ic                  1  # (Code for IC criterion in MImapqtl)
+-phasemim            0  # (Phase of analysis MImapqtl)
+-Hypothesis         30  # (Hypothesis test to do/process)
+#
+# These are the default filenames...
+#
+-stem                        qtlcart  # (Stem for filenames)
+-Thecross                        SF2  # (Type of cross)
+-error                   qtlcart.log  # (Log and error file: All)
+-map                     qtlcart.map  # (Rmap ouput file, linkage map)
+-mapin             ABRxBD21_Rmap.inp  # (Rmap input file)
+-qtl                     qtlcart.qtl  # (Rqtl output file)
+-ifile                   qtlcart.cro  # (Rcross output file, individual data file)
+-iinfile         ABRxBD21_Rcross.inp  # (Rcross input file, individual data file)
+-lrfile                   qtlcart.lr  # (Results of Linear Regression analysis)
+-srfile                   qtlcart.sr  # (Results of Stepwise Regression analysis)
+-qstat                   qtlcart.qst  # (Results of Qstats)
+-zfile                     qtlcart.z  # (Results of (Composite) Interval Mapping Analysis)
+-eqtlfile                   qtlcart.eqt  # (Eqtl output file)
+-mimfile                 qtlcart.mim  # (Results of Multiple Interval Mapping Analysis)
+-mqtfile                qtlcarti.mqt  # (Multiple Interval Mapping Analysis Model)
+-bayesfile               qtlcart.bys  # (Results of Bayesian Analysis)
+-mrinput                qtlcart.zr  # (Output of JZmapqtl for input to MultiRegress)
+-mroutput                qtlcart.mr  # (Results of MultiRegress)
+#
+#  end of file
+#

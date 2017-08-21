@@ -1,0 +1,66 @@
+---
+title: "ABR6xBD21"
+author: "Nathan Hughes"
+date: "2 August 2017"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# load libraries
+library(stats)
+library(plyr)
+library(dplyr)
+library(purrr)
+library(readr)
+library(ggplot2)
+library(scales)
+library(plotrix)
+library(qtl)
+library(knitr)
+library(xtable)
+library(GGally)
+
+# load data
+phendata = read_tsv('~/Google Drive/GenSoc/Data/Phenotypic Data/Compiled Data/medianRILs.tsv')
+colnames(phendata) <- substring(colnames(phendata), 8)
+phendata$z <- NULL
+
+abr6 = read_tsv('~/Google Drive/GenSoc/Data/Phenotypic Data/Compiled Data/abr6.tsv')
+bd21 = read_tsv('~/Google Drive/GenSoc/Data/Phenotypic Data/Compiled Data/bd21.tsv')
+
+```
+
+## Phenotypic Data
+### Cross
+```{r kable, fig.width=6, fig.height=3}
+
+ggcorr(phendata[, 2:9], hjust = 0.6, label = TRUE, label_size = 2, size = 2 ) +
+  annotate("Text", x = 3.5, y = 7, label = "Correlation of Median phenotypes\n of F8 Population") 
+
+
+```
+
+
+
+
+
+## Slide with Bullets
+
+- Bullet 1
+- Bullet 2
+- Bullet 3
+
+## Slide with R Output
+
+```{r cars, echo = TRUE}
+summary(cars)
+```
+
+## Slide with Plot
+
+```{r pressure}
+plot(pressure)
+```
+

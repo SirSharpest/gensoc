@@ -1,0 +1,2 @@
+dimx_p,dimy_p,dimz_p,dimx_um,dimy_um,dimz_um,slice_thickness_um,slice_increment_um,slice_1_pos_um,min_data_value,max_data_value,mu_scaling,plantID
+512,512,1451,35225,35225,99828,68,68,2818,-1362,11193,4096,/media/nah31/storage/Sample 79/00000079/00003001/C0002959.ISQ;1

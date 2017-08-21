@@ -1,3 +1,6 @@
+# Clear data 
+rm(list=ls())
+
 library(stats)
 library(plyr)
 library(dplyr)
@@ -7,11 +10,12 @@ library(ggplot2)
 library(scales)
 library(plotrix)
 
+
 # Setup working dir
-setwd('/home//nathan/Google Drive/GenSoc/Data/')
+setwd('C:/Users/Nathan/Google Drive/GenSoc/Data/')
 
 # Read in the CSV files
-Tbl <- list.files(path = "Phenotypic Data/CT Data/",
+Tbl <- list.files(path = "Phenotypic Data/CT Data/Single Heads",
                   pattern="*ISQ.csv",
                   recursive = TRUE,
                   full.names = T) %>% 
@@ -29,6 +33,7 @@ Tbl <- Tbl[Tbl$volume > 1,]
 Tbl$geometry_ratio <- ((Tbl$width / Tbl$length) + (Tbl$width / Tbl$depth)
                        + (Tbl$depth / Tbl$width)+ (Tbl$depth / Tbl$length)
                        + (Tbl$length / Tbl$depth) + (Tbl$length / Tbl$width))
+
 
 # Normalisation function
 norml <- function(x){(x-min(x))/(max(x)-min(x))}

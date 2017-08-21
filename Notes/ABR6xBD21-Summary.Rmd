@@ -2,7 +2,7 @@
 title: "ABR6xBD21 Summary"
 author: "Nathan Hughes"
 date: "2 August 2017"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -24,25 +24,27 @@ library(xtable)
 library(GGally)
 library(reshape2)
 library(png)
-library(kableExtra)
+library(ggfortify)
+
+setwd('c:/Users/Nathan/Google Drive')
 
 # example of grain phenotypes
-img <- readPNG('~/Google Drive/GenSoc/Pretty Pictures/labwheat.png')
+img <- readPNG('GenSoc/Pretty Pictures/labwheat.png')
 
 # load data
-phendata = read_tsv('~/Google Drive/GenSoc/Data/Phenotypic Data/Compiled Data/medianRILs.tsv')
+phendata = read_tsv('GenSoc/Data/Phenotypic Data/Compiled Data/medianRILs.tsv')
 phendata$median_z <- NULL
 
-abr6 = read_tsv('~/Google Drive/GenSoc/Data/Phenotypic Data/Compiled Data/abr6.tsv')
-bd21 = read_tsv('~/Google Drive/GenSoc/Data/Phenotypic Data/Compiled Data/bd21.tsv')
+abr6 = read_tsv('GenSoc/Data/Phenotypic Data/Compiled Data/abr6.tsv')
+bd21 = read_tsv('GenSoc/Data/Phenotypic Data/Compiled Data/bd21.tsv')
 
 # load qtl plotting functions 
-source('~/Google Drive/GenSoc/QTL Mapping/Code/qtlplotter.R')
+source('GenSoc/QTL Mapping/Code/qtlplotter.R')
 
 # load QTL
 qtl = read.cross(format="qtlcart", 
-                 file="~/Google Drive/GenSoc/Data/Genetic Map/Latest ABR6xBD21 Map/qtlcart.cro",
-                 mapfile="~/Google Drive/GenSoc/Data/Genetic Map/Latest ABR6xBD21 Map/qtlcart.map")
+                 file="GenSoc/Data/Genetic Map/More phens Map/qtlcart.cro",
+                 mapfile="GenSoc/Data/Genetic Map/More phens Map/qtlcart.map")
 
 qtl <- calc.genoprob(qtl, error.prob = 0.001)
 ```
@@ -54,23 +56,6 @@ For clarification of Phenotypic discriptions, this is a labeled wheat grain
 grid::grid.raster(img)
 ```
 
-\clearpage
-
-
-```{r}
-
-kable((phendata[1:20,1:7]))%>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
-
-kable((phendata[1:20,8:14]))%>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
-
-
-kable((phendata[1:20,15:20]))%>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
-
-
-```
 
 \clearpage
 
@@ -80,6 +65,8 @@ ggcorr(bd21[, c('length','width','depth','circularity', 'volume','crease_depth',
                 'surface_area', 'geometry_ratio')], 
        hjust = 0.6, label = TRUE, label_size = 4, size = 4 ) +
   annotate("Text", x = 3.5, y = 7, label = "Correlation of Median phenotypes\n of BD21") 
+
+ggsave('bd21.png', plot = last_plot())
 
 ```
 
@@ -92,6 +79,8 @@ ggcorr(abr6[, c('length','width','depth','circularity', 'volume','crease_depth',
        hjust = 0.6, label = TRUE, label_size = 4, size = 4 ) + 
   annotate("Text", x = 3.5, y = 7, label = "Correlation of Median phenotypes\n of ABR6") 
 
+ggsave('abr6.png', plot = last_plot())
+
 ```
 
 \clearpage
@@ -101,6 +90,8 @@ ggcorr(abr6[, c('length','width','depth','circularity', 'volume','crease_depth',
 ggcorr(phendata[, 2:9], hjust = 0.6, label = TRUE, label_size = 4, size = 4 ) +
   annotate("Text", x = 3.5, y = 7, 
            label = "Correlation of Median phenotypes\n of F8 Population") 
+
+ggsave('cross-corr.png', plot = last_plot())
 
 ```
 
@@ -115,18 +106,39 @@ ggplot(d,aes(x = value)) +
     facet_wrap(~variable,scales = "free_x") + 
     geom_histogram(bins = 15, col = "black")
 
+ggsave('hist.png', plot = last_plot())
+
 ```
 
 \clearpage
 
+## PCA of Phenotypes
+
+```{r}
+
+d <- phendata[,c('length','width','depth','circularity', 'volume','crease_depth', 
+                      'surface_area')]
+
+
+pcr <- prcomp(d)
+autoplot(pcr)
+
+ggsave('pca.png', plot = last_plot())
+
+```
+
 ##  Genotypic Data 
 
 ```{r}
+png('geno-est-map.png')
 plot(est.map(qtl))
+dev.off()
 ```
 
 ```{r}
+png('geno-image.png')
 geno.image(qtl)
+dev.off()
 ```
 
 - Few missing readings (white spots)
@@ -134,7 +146,9 @@ geno.image(qtl)
 
 
 ```{r}
+png('geno-rf-est.png')
 plot.rf(est.rf(qtl))
+dev.off()
 ```
 
 \clearpage
@@ -143,32 +157,37 @@ plot.rf(est.rf(qtl))
 
 ```{r results='hide', message=FALSE, warning=FALSE, fig.height = 10, fig.width = 7}
 
-for (col in colnames(qtl$pheno)){
+ for (col in colnames(qtl$pheno)){
+ 
+   s1 <- scanone(qtl, method = "hk", pheno.col = col)
+   s2 <- scanone(qtl, method = "em", pheno.col = col)
+   s3 <- scanone(qtl, method = "mr", pheno.col = col)
+   operm.hk <- scanone(qtl, method = "hk", pheno.col = col, model = "normal",
+                       n.perm = 1000, verbose = FALSE)
+ 
+   lod_threshold <- summary(operm.hk)
+ 
+   perms <- scanone(qtl, pheno.col = col, n.perm = 1000, method = "hk")
+ 
+   summary(s1, perms=perms, pvalues=T)
+ 
+     if (max(s1$lod) >= 2.5 && max(s2$lod) > 2.5 && max(s3$lod) > 2.5) {
+     kable(summary(s1))
 
-  s1 <- scanone(qtl, method = "hk", pheno.col = col)
-  s2 <- scanone(qtl, method = "em", pheno.col = col)
-  s3 <- scanone(qtl, method = "mr", pheno.col = col)
-  operm.hk <- scanone(qtl, method = "hk", pheno.col = col, model = "normal",
-                      n.perm = 1000, verbose = FALSE)
-  
-  lod_threshold <- summary(operm.hk)
+	 png(sprintf('%s.png', col))
+	 par(mfrow = (c(2, 1)))
 
-  perms <- scanone(qtl, pheno.col = col, n.perm = 1000, method = "hk")
-  
-  summary(s1, perms=perms, pvalues=T)
 
-    if (max(s1$lod) >= 1){
-    kable(summary(s1))
-    par( mfrow=(c(2,1)))
-    plot(s1,s2,s3, main=" ", col=c('green','blue','orange'), ity=2) 
-    title(sprintf("One-way scan QTL for: %s", col), outer=TRUE, line=-1)
-    add.threshold(out=s1, perms = perms, col='red', ity=2, alpha=0.2)
-    plot(perms)
-    abline(v=quantile(perms,.95), col='red', ity=2)
-    
+     plot(s1, s2, s3, main = " ", col = c('green', 'blue', 'orange'), ity = 2)
 
-  }
-}
+	 title(sprintf("One-way scan QTL for: %s", col), outer=TRUE, line=-1)
+     add.threshold(out=s1, perms = perms, col='red', ity=2, alpha=0.2)
+     plot(perms)
+     abline(v=quantile(perms,.95), col='red', ity=2)
+ 
+	dev.off()
+   }
+ }
 ```
 
 
